@@ -1,0 +1,131 @@
+<!DOCTYPE html>
+<HTML>
+<HEAD>
+
+<style>
+html
+{
+position: relative;
+height: 510px;
+overflow-y: scroll;
+}
+</style>
+
+	<meta content="text/html;charset=utf-8" http-equiv="Content-Type">
+	<meta content="utf-8" http-equiv="encoding">
+
+	<!-- Include jQuery -->
+
+	<script src="http://ajax.googleapis.com/ajax/libs/jquery/2.1.1/jquery.min.js"></script>
+	
+	<!-- Boot strap styles for resizing and mobile support -->
+	<link href="css/bootstrap.min.css" rel="stylesheet">
+	
+	<!-- Custom styles -->
+	<link rel="stylesheet" type="text/css" href="css/main.css">
+	
+	<!-- Custom JS -->
+	<script src="js/calculator.js"></script>
+	<script src="js/calculatorUnits.js"></script>
+	
+	<!-- Google fonts, smooth -->
+	<link href='http://fonts.googleapis.com/css?family=Quicksand:400,300' rel='stylesheet' type='text/css'>
+	
+	
+	<script>
+		
+		// Magnitude ********************************
+		var magFields = [ 
+			new field('MAGabsMag',"-5*log10({MAGdistance}/10) + {MAGappMag}","Abs Mag (M)","Magnitude"),
+			new field('MAGappMag',"5*log10({MAGdistance}/10) + {MAGabsMag}","App Mag (m)","Magnitude"),
+			new field('MAGdistance',"Math.pow(10,0.2*({MAGappMag}-{MAGabsMag}+5))","Distance (d)","Distance",'pc')
+		];
+		
+		var magHeader = new header('Stellar Magnitude','m - M = 5*log(d/10)',
+								"Magnitude is a measure of an object's luminosity, with respect to a distance from the viewer. Apparent magnitude is a measure of how bright an object appears in the nightsky, whereas, absolute magnitude is how bright it would appear if it were 10 parsecs away."
+							);
+	
+		// Dawes Limit ********************************
+		var dawesFields = [ 
+		//*8.2315794*Math.pow(10,-19)
+			new field('dawesArc',"(4.56*8.2315794*Math.pow(10,-19))/{dawesAperture}","Arc (A)","Arc",'sec'),
+			new field('dawesAperture',"(4.56*8.2315794*Math.pow(10,-19))/{dawesArc}","Aperture (L)","Distance",'in'),
+		];
+		
+		var dawesHeader = new header('Limiting Resolution','A = 4.56/L',
+								"Dawe's Limit is a measure of a telescopes limiting resolution, the equation is simple, merely 4.56 seconds of arc divided by a telescope's aperture."
+							);
+	
+		// Magnification Calculator *************************************
+		var magnifyHeader = new header('Telescopic Magnification','M = E<sub>FL</sub> / T<sub>FL</sub>','A telescope\'s magnification is dependent upon the focal length of the telescope (an indirect measure of the length of a telescope) and the focal length of the eye piece');
+		
+		 var magnifyFields = [
+			new field('magnifyMag',"{magnifyTele}/{magnifyEye}","Magnification (M)","Magnification",'x1'),
+			new field('magnifyEye',"{magnifyTele}/{magnifyMag}","Eyepiece FLen (E<sub>FL</sub>)","Distance",'mm'),
+			new field('magnifyTele',"({magnifyMag}*{magnifyEye})","Telescope FLen (T<sub>FL</sub>)","Distance",'mm')
+		];
+    
+    
+		// Magnification Calculator *************************************
+		var energyHeader = new header('Mass to Energy','E = MC<sup>2</sup>','Perhaps one of the most famous equations of all time, the energy of an object is equal to its mass times the speed of light in a vacuum squared.  Credit: Albert Einstein.');
+		
+		 var energyFields = [
+			new field('energyEnergy',"{energyMass}*8.9875518e16","Energy","Energy",'J'),
+			new field('energyMass',"{energyEnergy}/(8.9875518e16)","Mass","Mass",'kg'),
+		];
+	
+		$( document ).ready(function() {
+
+			addLink('dawesFields','dawesHeader',dawesHeader.title);
+			addLink('magFields','magHeader',magHeader.title);
+			addLink('magnifyFields','magnifyHeader',magnifyHeader.title);
+      addLink('energyFields','energyHeader',energyHeader.title);
+		});
+		
+
+	</script>
+	
+	
+</HEAD>
+<BODY>
+	<div class="banner">
+
+		<! -- Webiota Text -->
+		Ember <img width="60" src="img/nightemberlogo.png"> Calculator
+<!--
+		<div class="linkbar">
+			<a href="">Nightsky Map</a> / 
+			<a href="">Weather</a> / 
+			<a href="">Events</a> / 
+			<a href="">Images</a> / 
+			<a href="">News Feed</a> /
+			<a href="">About</a>  / 
+			<a href="">[Calculator]</a>  /
+			<a href="">Blog</a> 
+		</div>
+    -->
+	</div>
+
+	<div class="row" id="calcHeader">
+		<div class="main col-lg-6">
+			<h1>Astronomy Calculators</h1>
+			<div>
+				<h3>Brightness and Resolution</h3>
+				<div id="links">
+					
+					
+				</div>
+			
+			</div>
+			<br/><br/>
+			Developed by <a href="">Webiota</a>.  Certain modules are open source, all other rights reserved.</center>
+		</div>
+	</div>
+
+	<div class="row">
+		<span class="description"><center>
+			<!---->
+		</span>
+	</div>
+</BODY>
+</HTML>
